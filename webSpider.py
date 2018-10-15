@@ -44,6 +44,8 @@ def spiderExchangeRateQuotation(mechanismCode): #'ICBC'
                                           issuingTime=dir.get('issuingTime'),acquisitionTime=now_time,
                                           mechanismCode=mechanismCode)
         db.session.add(quotation)
+        db.session.commit()
+        db.session.close()
     return 'ok'
 
 
@@ -95,8 +97,7 @@ def getexchangeratequotationlist():
 
 @app.after_request
 def after_request(response):
-    db.session.commit()
-    db.session.close()
+
     return response
 
 
