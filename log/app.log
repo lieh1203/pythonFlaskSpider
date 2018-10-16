@@ -1,0 +1,30 @@
+[2018-10-16 16:27:05,650] INFO in _internal:  * Restarting with stat
+[2018-10-16 16:27:06,271] WARNING in _internal:  * Debugger is active!
+[2018-10-16 16:27:06,276] INFO in _internal:  * Debugger PIN: 323-810-758
+[2018-10-16 16:27:06,282] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-16 16:27:10,954] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-16 16:27:10,955] INFO in log: {}
+[2018-10-16 16:27:10,958] INFO in log: SELECT DATABASE()
+[2018-10-16 16:27:10,959] INFO in log: {}
+[2018-10-16 16:27:10,959] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-16 16:27:10,959] INFO in log: {}
+[2018-10-16 16:27:10,964] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-16 16:27:10,966] INFO in log: {}
+[2018-10-16 16:27:10,967] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-16 16:27:10,967] INFO in log: {}
+[2018-10-16 16:27:10,968] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-16 16:27:10,968] INFO in log: {}
+[2018-10-16 16:27:10,969] INFO in log: BEGIN (implicit)
+[2018-10-16 16:27:10,969] INFO in log: SELECT max(exchangeratequotation.`acquisitionTime`) AS max_1 
+FROM exchangeratequotation 
+WHERE exchangeratequotation.`issuingTime` >= %(issuingTime_1)s AND exchangeratequotation.`issuingTime` < %(issuingTime_2)s 
+ LIMIT %(param_1)s
+[2018-10-16 16:27:10,969] INFO in log: {'issuingTime_1': datetime.datetime(2018, 10, 15, 0, 0), 'issuingTime_2': datetime.datetime(2018, 10, 18, 0, 0), 'param_1': 1}
+[2018-10-16 16:27:10,972] INFO in log: SELECT exchangeratequotation.id AS exchangeratequotation_id, exchangeratequotation.currency AS exchangeratequotation_currency, exchangeratequotation.`spotPurchasePrice` AS `exchangeratequotation_spotPurchasePrice`, exchangeratequotation.`cashPurchasePrice` AS `exchangeratequotation_cashPurchasePrice`, exchangeratequotation.`spotSellingPrice` AS `exchangeratequotation_spotSellingPrice`, exchangeratequotation.`cashSellingPrice` AS `exchangeratequotation_cashSellingPrice`, exchangeratequotation.`issuingTime` AS `exchangeratequotation_issuingTime`, exchangeratequotation.`acquisitionTime` AS `exchangeratequotation_acquisitionTime`, exchangeratequotation.`mechanismCode` AS `exchangeratequotation_mechanismCode` 
+FROM exchangeratequotation 
+WHERE exchangeratequotation.`acquisitionTime` = %(acquisitionTime_1)s
+[2018-10-16 16:27:10,972] INFO in log: {'acquisitionTime_1': datetime.datetime(2018, 10, 15, 17, 56, 56)}
+[2018-10-16 16:27:10,975] INFO in log: COMMIT
+[2018-10-16 16:27:10,976] INFO in _internal: 127.0.0.1 - - [16/Oct/2018 16:27:10] "GET /exchangerate/getexchangeratequotationlist?issuingBeginTime=2018-10-15&issuingEndTime=2018-10-17 HTTP/1.1" 200 -
+[2018-10-16 16:27:40,762] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
+[2018-10-16 16:27:40,871] INFO in _internal:  * Restarting with stat
