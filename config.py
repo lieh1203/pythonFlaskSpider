@@ -14,6 +14,7 @@ class Config:
   FLASK_ADMIN=os.environ.get('FLASK_ADMIN')
   #flask接口返回的内容中文乱码，设置False
   JSON_AS_ASCII = False
+  fundKey='21p6cuo9reiw1x4wcsd0n769w0uow0yy'
 
 @staticmethod
 def init_app(app):

@@ -28,3 +28,18 @@ WHERE exchangeratequotation.`acquisitionTime` = %(acquisitionTime_1)s
 [2018-10-16 16:27:10,976] INFO in _internal: 127.0.0.1 - - [16/Oct/2018 16:27:10] "GET /exchangerate/getexchangeratequotationlist?issuingBeginTime=2018-10-15&issuingEndTime=2018-10-17 HTTP/1.1" 200 -
 [2018-10-16 16:27:40,762] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
 [2018-10-16 16:27:40,871] INFO in _internal:  * Restarting with stat
+[2018-10-17 18:20:10,140] INFO in _internal:  * Restarting with stat
+[2018-10-17 18:20:10,713] WARNING in _internal:  * Debugger is active!
+[2018-10-17 18:20:10,755] INFO in _internal:  * Debugger PIN: 323-810-758
+[2018-10-17 18:20:10,763] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-17 18:20:16,153] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:16] "GET / HTTP/1.1" 200 -
+[2018-10-17 18:20:16,256] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:16] "GET /favicon.ico HTTP/1.1" 404 -
+[2018-10-17 18:20:24,292] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:24] "GET /importfunds HTTP/1.1" 200 -
+[2018-10-17 18:20:58,839] INFO in _internal:  * Restarting with stat
+[2018-10-17 18:20:59,392] WARNING in _internal:  * Debugger is active!
+[2018-10-17 18:20:59,397] INFO in _internal:  * Debugger PIN: 323-810-758
+[2018-10-17 18:20:59,404] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-17 18:21:04,683] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:21:04] "GET /importfunds HTTP/1.1" 200 -
+[2018-10-17 18:21:07,713] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:21:07] "GET /importfunds HTTP/1.1" 200 -
+[2018-10-17 18:22:35,540] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
+[2018-10-17 18:22:35,633] INFO in _internal:  * Restarting with stat

@@ -66,10 +66,11 @@ class PagedResultDto(object):
             self.items = lists  # json.dumps(lists, ensure_ascii=False)
             self.totalCount = totalCount
 
-        self.__objData['result'] = {
-            'totalCount': self.totalCount,
-            'items': self.items,
-            'success': True
+        self.__objData= {
+            'data':{
+                'rows': self.items,
+                'total': self.totalCount
+            },'success': True
         }
         self.data = json.dumps(self.__objData, ensure_ascii=False)
 

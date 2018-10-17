@@ -6,12 +6,14 @@ from Spider import SpiderWeb
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from app import db, create_app
-from app.models import ExchangeRateQuotation
+from app.models import ExchangeRateQuotation,Fund
 import warnings
 from app import ResultDtos
 import datetime
 import logging
 from flask_cors import *
+import urllib3
+import json
 
 
 
@@ -50,6 +52,7 @@ dictConfig({'version': 1,
 # > flask run
 # 修改环境变量，修改数据库连接
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+fundKey=config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
@@ -65,8 +68,6 @@ def index():
 def scheduleconfirm():
     now_time = datetime.datetime.now()
     str = u'批处理调用确认，调用时间：{time}'.format(time=now_time)
-    # print(str)
-
     app.logger.info(str)
     return str
 
@@ -139,6 +140,71 @@ def getexchangeratequotationlist():
 
     return r.data
 
+@app.route('/fouds/importfunds')
+def importfunds():
+    http = urllib3.PoolManager()
+    url='https://mptest.fofinvesting.com/wxapi/third/fundlist?key={0}'.format(fundKey)
+    print(url)
+    r=http.request('get',url)
+    dataJson=json.loads(r.data.decode('utf-8'))
+    print(type(dataJson))
+    print(dataJson)
+    inserted_funds=[]
+    if dataJson.get('status') and dataJson.get('status')=='error':
+        return '没有权限或接口异常'
+    else:
+        if dataJson.get('amount') >0:
+            funds=dataJson.get('funds')
+            for f in funds:
+                code=f.get('code')
+                title = f.get('title')
+                category = f.get('category')
+                annualizedRate = f.get('annualizedRate')
+                unitNav = f.get('unitNav')
+                navDate = f.get('navDate')
+                subCategory = f.get('subCategory')
+                acquisitionTime=datetime.datetime.now()
+                inserted_funds.append(Fund(code=code,title=title,category=category,annualizedRate=annualizedRate,
+                     unitNav=unitNav,navDate=navDate,subCategory=subCategory,acquisitionTime=acquisitionTime))
+    db.session.add_all(inserted_funds)
+    db.session.commit()
+    db.session.close()
+    return 'ok'
+
+@app.route('/fouds')
+def getfoudListByPaged():
+    pageindex = request.args.get('pageindex')
+    pagecount = request.args.get('pagecount')
+    acquisitionTime = request.args.get('acquisitionTime')
+    code = request.args.get('code')
+    data = None
+    if pageindex is None:
+        pageindex = 1
+    else:
+        pageindex = int(pageindex)
+    if pagecount is None:
+        pagecount = 10
+    else:
+        pagecount = int(pagecount)
+    params=[]
+
+    if code:
+        params.append(Fund.code == code)
+
+    if acquisitionTime:
+        params.append(Fund.acquisitionTime == datetime.datetime.strptime(acquisitionTime, "%Y-%m-%d"))
+    else:  # 默认最后一天的行情
+        acquisitionTime = db.session.query(db.func.max(Fund.acquisitionTime)).first()
+        if acquisitionTime[0]:
+            params.append(Fund.acquisitionTime == acquisitionTime[0])
+
+    data=Fund.query.filter(*params)
+    totalCount = data.count()
+
+    dataPaged = data.paginate(page=pageindex, per_page=pagecount, error_out=False)
+    print(dataPaged)
+    r = ResultDtos.PagedResultDto(totalCount=totalCount, items=dataPaged.items)
+    return r.data
 
 @app.after_request
 def after_request(response):
