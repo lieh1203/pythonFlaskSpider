@@ -1,45 +1,43 @@
-[2018-10-16 16:27:05,650] INFO in _internal:  * Restarting with stat
-[2018-10-16 16:27:06,271] WARNING in _internal:  * Debugger is active!
-[2018-10-16 16:27:06,276] INFO in _internal:  * Debugger PIN: 323-810-758
-[2018-10-16 16:27:06,282] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-[2018-10-16 16:27:10,954] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
-[2018-10-16 16:27:10,955] INFO in log: {}
-[2018-10-16 16:27:10,958] INFO in log: SELECT DATABASE()
-[2018-10-16 16:27:10,959] INFO in log: {}
-[2018-10-16 16:27:10,959] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
-[2018-10-16 16:27:10,959] INFO in log: {}
-[2018-10-16 16:27:10,964] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
-[2018-10-16 16:27:10,966] INFO in log: {}
-[2018-10-16 16:27:10,967] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
-[2018-10-16 16:27:10,967] INFO in log: {}
-[2018-10-16 16:27:10,968] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
-[2018-10-16 16:27:10,968] INFO in log: {}
-[2018-10-16 16:27:10,969] INFO in log: BEGIN (implicit)
-[2018-10-16 16:27:10,969] INFO in log: SELECT max(exchangeratequotation.`acquisitionTime`) AS max_1 
+[2018-10-18 16:29:00,228] INFO in _internal:  * Restarting with stat
+[2018-10-18 16:29:01,135] WARNING in _internal:  * Debugger is active!
+[2018-10-18 16:29:01,146] INFO in _internal:  * Debugger PIN: 323-810-758
+[2018-10-18 16:29:01,161] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-18 16:29:03,662] INFO in _internal: 127.0.0.1 - - [18/Oct/2018 16:29:03] "GET / HTTP/1.1" 200 -
+[2018-10-18 16:29:25,629] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-18 16:29:25,629] INFO in log: {}
+[2018-10-18 16:29:25,638] INFO in log: SELECT DATABASE()
+[2018-10-18 16:29:25,638] INFO in log: {}
+[2018-10-18 16:29:25,640] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-18 16:29:25,641] INFO in log: {}
+[2018-10-18 16:29:25,788] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-18 16:29:25,789] INFO in log: {}
+[2018-10-18 16:29:25,791] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-18 16:29:25,792] INFO in log: {}
+[2018-10-18 16:29:25,794] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-18 16:29:25,795] INFO in log: {}
+[2018-10-18 16:29:25,797] INFO in log: BEGIN (implicit)
+[2018-10-18 16:29:25,799] INFO in log: SELECT max(exchangeratequotation.`acquisitionTime`) AS max_1 
 FROM exchangeratequotation 
-WHERE exchangeratequotation.`issuingTime` >= %(issuingTime_1)s AND exchangeratequotation.`issuingTime` < %(issuingTime_2)s 
  LIMIT %(param_1)s
-[2018-10-16 16:27:10,969] INFO in log: {'issuingTime_1': datetime.datetime(2018, 10, 15, 0, 0), 'issuingTime_2': datetime.datetime(2018, 10, 18, 0, 0), 'param_1': 1}
-[2018-10-16 16:27:10,972] INFO in log: SELECT exchangeratequotation.id AS exchangeratequotation_id, exchangeratequotation.currency AS exchangeratequotation_currency, exchangeratequotation.`spotPurchasePrice` AS `exchangeratequotation_spotPurchasePrice`, exchangeratequotation.`cashPurchasePrice` AS `exchangeratequotation_cashPurchasePrice`, exchangeratequotation.`spotSellingPrice` AS `exchangeratequotation_spotSellingPrice`, exchangeratequotation.`cashSellingPrice` AS `exchangeratequotation_cashSellingPrice`, exchangeratequotation.`issuingTime` AS `exchangeratequotation_issuingTime`, exchangeratequotation.`acquisitionTime` AS `exchangeratequotation_acquisitionTime`, exchangeratequotation.`mechanismCode` AS `exchangeratequotation_mechanismCode` 
-FROM exchangeratequotation 
-WHERE exchangeratequotation.`acquisitionTime` = %(acquisitionTime_1)s
-[2018-10-16 16:27:10,972] INFO in log: {'acquisitionTime_1': datetime.datetime(2018, 10, 15, 17, 56, 56)}
-[2018-10-16 16:27:10,975] INFO in log: COMMIT
-[2018-10-16 16:27:10,976] INFO in _internal: 127.0.0.1 - - [16/Oct/2018 16:27:10] "GET /exchangerate/getexchangeratequotationlist?issuingBeginTime=2018-10-15&issuingEndTime=2018-10-17 HTTP/1.1" 200 -
-[2018-10-16 16:27:40,762] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
-[2018-10-16 16:27:40,871] INFO in _internal:  * Restarting with stat
-[2018-10-17 18:20:10,140] INFO in _internal:  * Restarting with stat
-[2018-10-17 18:20:10,713] WARNING in _internal:  * Debugger is active!
-[2018-10-17 18:20:10,755] INFO in _internal:  * Debugger PIN: 323-810-758
-[2018-10-17 18:20:10,763] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-[2018-10-17 18:20:16,153] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:16] "GET / HTTP/1.1" 200 -
-[2018-10-17 18:20:16,256] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:16] "GET /favicon.ico HTTP/1.1" 404 -
-[2018-10-17 18:20:24,292] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:20:24] "GET /importfunds HTTP/1.1" 200 -
-[2018-10-17 18:20:58,839] INFO in _internal:  * Restarting with stat
-[2018-10-17 18:20:59,392] WARNING in _internal:  * Debugger is active!
-[2018-10-17 18:20:59,397] INFO in _internal:  * Debugger PIN: 323-810-758
-[2018-10-17 18:20:59,404] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-[2018-10-17 18:21:04,683] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:21:04] "GET /importfunds HTTP/1.1" 200 -
-[2018-10-17 18:21:07,713] INFO in _internal: 127.0.0.1 - - [17/Oct/2018 18:21:07] "GET /importfunds HTTP/1.1" 200 -
-[2018-10-17 18:22:35,540] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
-[2018-10-17 18:22:35,633] INFO in _internal:  * Restarting with stat
+[2018-10-18 16:29:25,799] INFO in log: {'param_1': 1}
+[2018-10-18 16:29:25,877] INFO in log: COMMIT
+[2018-10-18 16:29:25,879] INFO in _internal: 127.0.0.1 - - [18/Oct/2018 16:29:25] "GET /exchangerate/getexchangeratequotationlist HTTP/1.1" 200 -
+[2018-10-18 16:29:42,929] INFO in log: BEGIN (implicit)
+[2018-10-18 16:29:42,930] INFO in log: SELECT max(funds.`acquisitionTime`) AS max_1 
+FROM funds 
+ LIMIT %(param_1)s
+[2018-10-18 16:29:42,930] INFO in log: {'param_1': 1}
+[2018-10-18 16:29:43,056] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`annualizedRate` AS `funds_annualizedRate`, funds.`unitNav` AS `funds_unitNav`, funds.`navDate` AS `funds_navDate`, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`acquisitionTime` AS `funds_acquisitionTime` 
+FROM funds) AS anon_1
+[2018-10-18 16:29:43,057] INFO in log: {}
+[2018-10-18 16:29:43,064] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`annualizedRate` AS `funds_annualizedRate`, funds.`unitNav` AS `funds_unitNav`, funds.`navDate` AS `funds_navDate`, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`acquisitionTime` AS `funds_acquisitionTime` 
+FROM funds 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-18 16:29:43,066] INFO in log: {'param_1': 0, 'param_2': 10}
+[2018-10-18 16:29:43,073] INFO in webSpider: <flask_sqlalchemy.Pagination object at 0x0000021B64B37940>
+[2018-10-18 16:29:43,075] INFO in log: COMMIT
+[2018-10-18 16:29:43,078] INFO in _internal: 127.0.0.1 - - [18/Oct/2018 16:29:43] "GET /funds HTTP/1.1" 200 -
+[2018-10-18 16:30:28,610] INFO in webSpider: https://mptest.fofinvesting.com/wxapi/third/fundlist?key=21p6cuo9reiw1x4wcsd0n769w0uow0yy
+[2018-10-18 16:30:28,926] INFO in webSpider: {'status': 'error', 'message': '当前账号没有权限', 'stamp': 1539851428}
+[2018-10-18 16:30:28,932] INFO in _internal: 127.0.0.1 - - [18/Oct/2018 16:30:28] "GET /funds/importfunds HTTP/1.1" 200 -

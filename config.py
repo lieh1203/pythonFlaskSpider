@@ -46,7 +46,7 @@ class ProductionConfig(Config): #?charset=utf8
 config={
     'development':DevelopmentConfig,
     'testing':TestingConfig,
-    'production':ProductionConfig,
+    'production':DevelopmentConfig,
     'default':DevelopmentConfig
 }
 
