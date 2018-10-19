@@ -16,6 +16,12 @@ class ExchangeRateQuotation(db.Model):
     acquisitionTime = db.Column(db.DateTime())
     mechanismCode = db.Column(db.String(20))  # 工商银行 code=ICBC
 
+    __table_args__ = (
+        # exchangeratequotation表索引
+        db.Index('ix_mechanismCode', 'mechanismCode'),  # 索引
+        db.Index('ix_issuingTime', 'issuingTime'),  # 索引
+        db.Index('ix_acquisitionTime', 'acquisitionTime'),  # 索引
+    )
 
 class Fund(db.Model):
     __tablename__ = "funds"
@@ -29,3 +35,11 @@ class Fund(db.Model):
     subCategory = db.Column(db.String(20))
     mechanismCode = db.Column(db.String(20)) # 机构code=ICBC
     acquisitionTime = db.Column(db.DateTime())  # 抓取时间
+
+
+    __table_args__ = (
+        #Funds表索引
+        db.Index('ix_code','code'),  # 索引
+        db.Index('ix_acquisitionTime','acquisitionTime'),  # 索引
+        db.Index('ix_id_code_acquisitionTime','id', 'code','acquisitionTime'),  # 索引
+    )
