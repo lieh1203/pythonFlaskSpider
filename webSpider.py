@@ -162,7 +162,7 @@ def importfunds():
                 subCategory = f.get('subCategory')
                 inserted_funds.append(Fund(code=code, title=title, category=category, annualizedRate=annualizedRate,
                                            unitNav=unitNav, navDate=navDate, subCategory=subCategory,
-                                           acquisitionTime=now_time, mechanismCode='channel'))  # 况客基金
+                                           acquisitionTime=now_time, mechanismCode='fof'))  # fof 况客基金code
     db.session.add_all(inserted_funds)
     db.session.commit()
     db.session.close()
@@ -174,7 +174,7 @@ def importfunds():
 def getfoudListByPaged():
     dicts = request.args.to_dict()
     pageindex = None
-    pagecount = None
+    pagesize = None
     acquisitionTime = None
     code = None
     orgcode = None  # 机构code
@@ -182,9 +182,9 @@ def getfoudListByPaged():
     for d in dicts:  # 忽略大小写
         if 'pageindex'.lower() == d.lower():
             pageindex = dicts.get(d)
-        if 'pagecount'.lower() == d.lower():
-            pagecount = dicts.get(d)
-        if 'acquisitionTime'.lower() == d.lower():
+        if 'pagesize'.lower() == d.lower():
+            pagesize = dicts.get(d)
+        if 'time'.lower() == d.lower():
             acquisitionTime = dicts.get(d)
         if 'code'.lower() == d.lower():
             code = dicts.get(d)
@@ -196,10 +196,10 @@ def getfoudListByPaged():
         pageindex = 1
     else:
         pageindex = int(pageindex)
-    if pagecount is None:
-        pagecount = 10
+    if pagesize is None:
+        pagesize = 10
     else:
-        pagecount = int(pagecount)
+        pagesize = int(pagesize)
 
     # 拼接查询条件参数数组
     params = []
@@ -221,7 +221,7 @@ def getfoudListByPaged():
     data = Fund.query.filter(*params)
     totalCount = data.count()
 
-    dataPaged = data.paginate(page=pageindex, per_page=pagecount, error_out=False)
+    dataPaged = data.paginate(page=pageindex, per_page=pagesize, error_out=False)
     app.logger.info(dataPaged)
     r = ResultDtos.PagedResultDto(totalCount=totalCount, items=dataPaged.items)
     return r.data
@@ -233,5 +233,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    #app.run()
-    manager.run()
+    app.run()
+    #manager.run()
