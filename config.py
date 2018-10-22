@@ -52,5 +52,6 @@ config={
 
 
 spiderUrls = {
+    #爬取的汇率数据地址
     "QuotationUrl": "http://www.icbc.com.cn/ICBCDynamicSite/Optimize/Quotation/QuotationListIframe.aspx"
 }

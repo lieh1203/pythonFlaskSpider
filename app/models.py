@@ -23,23 +23,41 @@ class ExchangeRateQuotation(db.Model):
         db.Index('ix_acquisitionTime', 'acquisitionTime'),  # 索引
     )
 
+
 class Fund(db.Model):
     __tablename__ = "funds"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    code = db.Column(db.String(20))
-    title = db.Column(db.String(50))
-    category = db.Column(db.String(50))
+    code = db.Column(db.String(20))  # 基金代码，限定6位
+    title = db.Column(db.String(50))  # 基金名称
+    category = db.Column(db.String(50))  # 基金所属一级类别
+    subCategory = db.Column(db.String(20))  # 基金所属二级类别
+    mechanismCode = db.Column(db.String(20))  # 机构code=ICBC
+    createTime = db.Column(db.DateTime())  # 抓取时间
+
+    __table_args__ = (
+        # Funds表索引
+        db.Index('ix_code', 'code'),  # 索引
+        db.Index('ix_title', 'title'),  # 索引
+        db.Index('ix_category', 'category'),  # 索引
+        db.Index('ix_subCategory', 'subCategory'),  # 索引
+        db.Index('ix_mechanismCode', 'mechanismCode'),  # 索引
+        db.Index('ix_id_code_title_mechanismCode', 'id', 'code', 'title','mechanismCode'),  # 联合索引
+    )
+
+
+# 基金净值表
+class FundNetValue(db.Model):
+    __tablename__ = 'fundsnetvalue'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     annualizedRate = db.Column(db.DECIMAL(precision=22, scale=18))
     unitNav = db.Column(db.DECIMAL(precision=14, scale=10))
     navDate = db.Column(db.DateTime())
-    subCategory = db.Column(db.String(20))
-    mechanismCode = db.Column(db.String(20)) # 机构code=ICBC
-    acquisitionTime = db.Column(db.DateTime())  # 抓取时间
-
+    createTime = db.Column(db.DateTime())  # 抓取时间
+    fundId = db.Column(db.Integer, db.ForeignKey('funds.id'))  # 基金表id外键
+    fund = db.relationship('Fund', backref=db.backref('fundnetvalues', cascade="all, delete,delete-orphan"))
 
     __table_args__ = (
-        #Funds表索引
-        db.Index('ix_code','code'),  # 索引
-        db.Index('ix_acquisitionTime','acquisitionTime'),  # 索引
-        db.Index('ix_id_code_acquisitionTime','id', 'code','acquisitionTime'),  # 索引
+        # Funds表索引
+        db.Index('ix_navDate', 'navDate'),  # 索引
+        db.Index('ix_id_navDate', 'id', 'navDate'),  # 索引
     )

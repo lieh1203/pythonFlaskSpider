@@ -1,10 +1,11 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, orm
 # 导入配置文件
 from config import config
 
 # 创建扩展对象，但没有初始化
 db = SQLAlchemy()
+orm = orm
 
 
 # 导入蓝图
