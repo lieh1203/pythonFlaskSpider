@@ -136,17 +136,39 @@ def getexchangeratequotationlist():
     return r.data
 
 
+# 获取基金Url地址
+@app.route('/funds/getfundUrl/<code>')
+def getfundUrl(code):
+    fundKey = config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
+    url = 'https://mptest.fofinvesting.com/wxapi/third/token?key={key}&code={code}&type=fund' \
+        .format(key=fundKey, code=code)
+    app.logger.info(url)
+    http = urllib3.PoolManager()
+    r = http.request('get', url)
+    dataJson = json.loads(r.data.decode('utf-8'))
+    result = {}
+    if dataJson.get('status') and dataJson.get('status') == 'error':
+        return result
+    elif dataJson.get('status') and dataJson.get('status') == 'success':
+        if dataJson.get('url') and dataJson.get('code'):
+            result['url'] = dataJson.get('url')
+            result['code'] = dataJson.get('code')
+    else:
+        return result
+    r = ResultDtos.NonPagedResultDto(items=[result], isEntity=False)
+    return r.data
+
+
 # 导入基金数据，批处理调用，
 @app.route('/funds/importfunds')
 def importfunds():
-
     http = urllib3.PoolManager()
     fundKey = config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
     url = 'https://mptest.fofinvesting.com/wxapi/third/fundlist?key={0}'.format(fundKey)
     app.logger.info(url)
     r = http.request('get', url)
     dataJson = json.loads(r.data.decode('utf-8'))
-    #app.logger.info(str(dataJson))
+    # app.logger.info(str(dataJson))
 
     # with open('fundsJson.txt',mode='w',encoding='utf-8') as f:
     #     f.write(str(dataJson))
@@ -302,8 +324,8 @@ def getfoudListByPaged():
     if navDate:  # 比较日期格式，不匹配时分秒格式
         params.append(db.cast(FundNetValue.navDate, db.Date) == db.cast(navDate, db.Date))
 
-    # 默认最后一天的行情
-    max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).filter(*params).first()
+    #根据关键字查询最新的navDate对应的那批数据
+    max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).filter(Fund.id==FundNetValue.fundId).filter(*params).first()
     if max_navDate[0]:
         params.append(FundNetValue.navDate == max_navDate[0])
 
@@ -337,5 +359,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    #app.run()
-    manager.run()
+    app.run()
+    # manager.run()

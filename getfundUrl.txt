@@ -1,0 +1,7 @@
+{
+"status": "success",
+"type": "fund",
+"code": "001657",
+"url": "url",
+"stamp": 1537503514
+}
