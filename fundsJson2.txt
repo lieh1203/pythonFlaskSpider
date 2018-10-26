@@ -1,0 +1,1 @@
+{"funds": [{"code": "000041", "title": "华夏全球精选", "category": "", "annualizedRate": 0.11778933432945182, "unitNav": 3.002, "navDate": "2018-10-23", "subCategory": "QDII股票"}], "amount": 1, "stamp": 1537503514}

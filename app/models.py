@@ -41,7 +41,7 @@ class Fund(db.Model):
         db.Index('ix_category', 'category'),  # 索引
         db.Index('ix_subCategory', 'subCategory'),  # 索引
         db.Index('ix_mechanismCode', 'mechanismCode'),  # 索引
-        db.Index('ix_id_code_title_mechanismCode', 'id', 'code', 'title','mechanismCode'),  # 联合索引
+        db.Index('ix_id_code_title_mechanismCode', 'id', 'code', 'title', 'mechanismCode'),  # 联合索引
     )
 
 
@@ -61,3 +61,17 @@ class FundNetValue(db.Model):
         db.Index('ix_navDate', 'navDate'),  # 索引
         db.Index('ix_id_navDate', 'id', 'navDate'),  # 索引
     )
+
+
+class Category(db.Model):
+    __tablename__ = 'categorys'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20))  # 基金所属一级类别名称
+
+
+class SubCategory(db.Model):
+    __tablename__ = 'subCategorys'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20))  # 基金所属二级类别名称
+    categoryId = db.Column(db.Integer, db.ForeignKey('categorys.id'))  # Category外键
+    Category = db.relationship('Category', backref=db.backref('subCategorys'))

@@ -1,0 +1,49 @@
+c1 = Category(name='FOF')
+    c2 = Category(name='QDII')
+    c3 = Category(name='保本型')
+    c4 = Category(name='债券型')
+    c5 = Category(name='商品型')
+    c6 = Category(name='混合型')
+    c7 = Category(name='股票型')
+    c8 = Category(name='货币市场型')
+
+    s1 = SubCategory(name='', Category=c1)
+
+    s2 = SubCategory(name='QDII股票', Category=c2)
+    s3 = SubCategory(name='QDII债券', Category=c2)
+    s4 = SubCategory(name='QDII其他', Category=c2)
+    s5 = SubCategory(name='QDII混合', Category=c2)
+
+    s6 = SubCategory(name='', Category=c3)
+
+    s7 = SubCategory(name='可转换债', Category=c4)
+    s8 = SubCategory(name='可投转债', Category=c4)
+    s10 = SubCategory(name='二级债基', Category=c4)
+    s11 = SubCategory(name='纯债', Category=c4)
+    s12 = SubCategory(name='债券型指数基金', Category=c4)
+    s13 = SubCategory(name='短期理财', Category=c4)
+    s14 = SubCategory(name='一级债基', Category=c4)
+    s15 = SubCategory(name='债券型分级基金', Category=c4)
+    s16 = SubCategory(name='债券型封闭基金', Category=c4)
+
+    s17 = SubCategory(name='', Category=c5)
+
+    s18 = SubCategory(name='偏股型', Category=c6)
+    s19 = SubCategory(name='灵活配置型', Category=c6)
+    s20 = SubCategory(name='行业偏股型', Category=c6)
+    s21 = SubCategory(name='其他混合型', Category=c6)
+    s22 = SubCategory(name='偏债型', Category=c6)
+    s23 = SubCategory(name='绝对收益', Category=c6)
+    s24 = SubCategory(name='股债平衡型', Category=c6)
+    s25 = SubCategory(name='沪港深', Category=c6)
+
+    s26 = SubCategory(name='股票型指数基金', Category=c7)
+    s27 = SubCategory(name='股票型主动管理', Category=c7)
+    s28 = SubCategory(name='股票型行业基金', Category=c7)
+    s29 = SubCategory(name='沪港深', Category=c7)
+    s30 = SubCategory(name='股票型分级基金', Category=c7)
+    s31 = SubCategory(name='股票型封闭基金', Category=c7)
+    s32 = SubCategory(name='', Category=c8)
+
+    db.session.add_all([s1, s2, s3, s4, s5, s6, s7, s8, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22,
+                       s23, s24, s25, s26, s27, s28, s29, s30, s31, s32])

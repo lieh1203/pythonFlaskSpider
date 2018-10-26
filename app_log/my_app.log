@@ -1,0 +1,278 @@
+[2018-10-26 17:10:46,004] INFO in _internal:  * Restarting with stat
+[2018-10-26 17:10:46,780] WARNING in _internal:  * Debugger is active!
+[2018-10-26 17:10:46,891] INFO in _internal:  * Debugger PIN: 323-810-758
+[2018-10-26 17:10:46,898] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-26 17:10:48,076] INFO in webSpider: url：http://127.0.0.1:5000/，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-26 17:10:48,937] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:48] "GET / HTTP/1.1" 500 -
+[2018-10-26 17:10:48,976] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:48] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+[2018-10-26 17:10:48,991] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:48] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+[2018-10-26 17:10:49,018] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:49] "GET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+[2018-10-26 17:10:49,092] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:49] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+[2018-10-26 17:10:49,224] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:49] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[2018-10-26 17:10:49,327] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:49] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[2018-10-26 17:10:58,508] INFO in webSpider: url：http://127.0.0.1:5000/exchangerate/getexchangeratequotationlist，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Purpose: prefetch
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-26 17:10:58,921] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-26 17:10:58,921] INFO in log: {}
+[2018-10-26 17:10:59,047] INFO in log: SELECT DATABASE()
+[2018-10-26 17:10:59,048] INFO in log: {}
+[2018-10-26 17:10:59,057] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-26 17:10:59,058] INFO in log: {}
+[2018-10-26 17:10:59,076] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:10:59,077] INFO in log: {}
+[2018-10-26 17:10:59,079] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:10:59,079] INFO in log: {}
+[2018-10-26 17:10:59,081] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-26 17:10:59,082] INFO in log: {}
+[2018-10-26 17:10:59,094] INFO in log: BEGIN (implicit)
+[2018-10-26 17:10:59,095] INFO in log: SELECT max(exchangeratequotation.`acquisitionTime`) AS max_1 
+FROM exchangeratequotation 
+ LIMIT %(param_1)s
+[2018-10-26 17:10:59,095] INFO in log: {'param_1': 1}
+[2018-10-26 17:10:59,118] INFO in log: SELECT exchangeratequotation.id AS exchangeratequotation_id, exchangeratequotation.currency AS exchangeratequotation_currency, exchangeratequotation.`spotPurchasePrice` AS `exchangeratequotation_spotPurchasePrice`, exchangeratequotation.`cashPurchasePrice` AS `exchangeratequotation_cashPurchasePrice`, exchangeratequotation.`spotSellingPrice` AS `exchangeratequotation_spotSellingPrice`, exchangeratequotation.`cashSellingPrice` AS `exchangeratequotation_cashSellingPrice`, exchangeratequotation.`issuingTime` AS `exchangeratequotation_issuingTime`, exchangeratequotation.`acquisitionTime` AS `exchangeratequotation_acquisitionTime`, exchangeratequotation.`mechanismCode` AS `exchangeratequotation_mechanismCode` 
+FROM exchangeratequotation 
+WHERE exchangeratequotation.`acquisitionTime` = %(acquisitionTime_1)s
+[2018-10-26 17:10:59,119] INFO in log: {'acquisitionTime_1': datetime.datetime(2018, 10, 25, 14, 28, 46)}
+[2018-10-26 17:10:59,153] INFO in webSpider: 记录 getexchangeratequotationlist 接口调用的耗时时间为：0.6013858318328857
+[2018-10-26 17:10:59,154] INFO in log: COMMIT
+[2018-10-26 17:10:59,156] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:10:59] "GET /exchangerate/getexchangeratequotationlist HTTP/1.1" 200 -
+[2018-10-26 17:11:10,879] INFO in webSpider: url：http://127.0.0.1:5000/exchangerate/getexchangeratequotationlist，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-26 17:11:10,888] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:11:10] "GET /exchangerate/getexchangeratequotationlist HTTP/1.1" 200 -
+[2018-10-26 17:16:57,821] INFO in _internal:  * Restarting with stat
+[2018-10-26 17:16:58,395] WARNING in _internal:  * Debugger is active!
+[2018-10-26 17:16:58,400] INFO in _internal:  * Debugger PIN: 729-978-626
+[2018-10-26 17:16:58,407] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-26 17:17:16,035] INFO in _internal:  * Restarting with stat
+[2018-10-26 17:17:16,647] WARNING in _internal:  * Debugger is active!
+[2018-10-26 17:17:16,654] INFO in _internal:  * Debugger PIN: 729-978-626
+[2018-10-26 17:17:16,665] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-26 17:17:19,770] INFO in webSpider: url：http://127.0.0.1:5000/，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-26 17:17:19,907] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-26 17:17:19,908] INFO in log: {}
+[2018-10-26 17:17:19,916] INFO in log: SELECT DATABASE()
+[2018-10-26 17:17:19,917] INFO in log: {}
+[2018-10-26 17:17:19,918] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-26 17:17:19,919] INFO in log: {}
+[2018-10-26 17:17:19,926] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:17:19,927] INFO in log: {}
+[2018-10-26 17:17:19,928] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:17:19,928] INFO in log: {}
+[2018-10-26 17:17:19,930] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-26 17:17:19,930] INFO in log: {}
+[2018-10-26 17:17:19,931] INFO in log: BEGIN (implicit)
+[2018-10-26 17:17:19,933] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,934] INFO in log: {'name': 'FOF'}
+[2018-10-26 17:17:19,940] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,940] INFO in log: {'name': 'QDII'}
+[2018-10-26 17:17:19,942] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,942] INFO in log: {'name': '保本型'}
+[2018-10-26 17:17:19,943] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,944] INFO in log: {'name': '债券型'}
+[2018-10-26 17:17:19,945] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,945] INFO in log: {'name': '商品型'}
+[2018-10-26 17:17:19,947] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,947] INFO in log: {'name': '混合型'}
+[2018-10-26 17:17:19,949] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,949] INFO in log: {'name': '股票型'}
+[2018-10-26 17:17:19,950] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:17:19,951] INFO in log: {'name': '货币市场型'}
+[2018-10-26 17:17:19,955] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,956] INFO in log: {'name': '', 'categoryId': 1}
+[2018-10-26 17:17:19,960] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,960] INFO in log: {'name': 'QDII股票', 'categoryId': 2}
+[2018-10-26 17:17:19,961] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,961] INFO in log: {'name': 'QDII债券', 'categoryId': 2}
+[2018-10-26 17:17:19,965] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,966] INFO in log: {'name': 'QDII其他', 'categoryId': 2}
+[2018-10-26 17:17:19,968] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,968] INFO in log: {'name': 'QDII混合', 'categoryId': 2}
+[2018-10-26 17:17:19,969] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,970] INFO in log: {'name': '', 'categoryId': 3}
+[2018-10-26 17:17:19,972] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,973] INFO in log: {'name': '可转换债', 'categoryId': 4}
+[2018-10-26 17:17:19,974] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,975] INFO in log: {'name': '可投转债', 'categoryId': 4}
+[2018-10-26 17:17:19,976] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,977] INFO in log: {'name': '二级债基', 'categoryId': 4}
+[2018-10-26 17:17:19,979] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,980] INFO in log: {'name': '纯债', 'categoryId': 4}
+[2018-10-26 17:17:19,982] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,982] INFO in log: {'name': '债券型指数基金', 'categoryId': 4}
+[2018-10-26 17:17:19,983] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,984] INFO in log: {'name': '短期理财', 'categoryId': 4}
+[2018-10-26 17:17:19,985] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,986] INFO in log: {'name': '一级债基', 'categoryId': 4}
+[2018-10-26 17:17:19,988] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,988] INFO in log: {'name': '债券型分级基金', 'categoryId': 4}
+[2018-10-26 17:17:19,989] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,989] INFO in log: {'name': '债券型封闭基金', 'categoryId': 4}
+[2018-10-26 17:17:19,990] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,990] INFO in log: {'name': '', 'categoryId': 5}
+[2018-10-26 17:17:19,991] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,991] INFO in log: {'name': '偏股型', 'categoryId': 6}
+[2018-10-26 17:17:19,992] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,993] INFO in log: {'name': '灵活配置型', 'categoryId': 6}
+[2018-10-26 17:17:19,994] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,994] INFO in log: {'name': '行业偏股型', 'categoryId': 6}
+[2018-10-26 17:17:19,995] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,996] INFO in log: {'name': '其他混合型', 'categoryId': 6}
+[2018-10-26 17:17:19,996] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,997] INFO in log: {'name': '偏债型', 'categoryId': 6}
+[2018-10-26 17:17:19,998] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,998] INFO in log: {'name': '绝对收益', 'categoryId': 6}
+[2018-10-26 17:17:19,999] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:19,999] INFO in log: {'name': '股债平衡型', 'categoryId': 6}
+[2018-10-26 17:17:20,000] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,000] INFO in log: {'name': '沪港深', 'categoryId': 6}
+[2018-10-26 17:17:20,001] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,003] INFO in log: {'name': '股票型指数基金', 'categoryId': 7}
+[2018-10-26 17:17:20,004] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,004] INFO in log: {'name': '股票型主动管理', 'categoryId': 7}
+[2018-10-26 17:17:20,005] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,006] INFO in log: {'name': '股票型行业基金', 'categoryId': 7}
+[2018-10-26 17:17:20,007] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,007] INFO in log: {'name': '沪港深', 'categoryId': 7}
+[2018-10-26 17:17:20,009] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,009] INFO in log: {'name': '股票型分级基金', 'categoryId': 7}
+[2018-10-26 17:17:20,010] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,010] INFO in log: {'name': '股票型封闭基金', 'categoryId': 7}
+[2018-10-26 17:17:20,011] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:17:20,012] INFO in log: {'name': '', 'categoryId': 8}
+[2018-10-26 17:17:20,013] INFO in log: COMMIT
+[2018-10-26 17:17:20,100] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:17:20] "GET / HTTP/1.1" 200 -
+[2018-10-26 17:20:42,408] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-26 17:20:44,362] INFO in webSpider: url：http://127.0.0.1:5000/，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-26 17:20:44,559] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-26 17:20:44,560] INFO in log: {}
+[2018-10-26 17:20:44,603] INFO in log: SELECT DATABASE()
+[2018-10-26 17:20:44,603] INFO in log: {}
+[2018-10-26 17:20:44,662] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-26 17:20:44,663] INFO in log: {}
+[2018-10-26 17:20:44,710] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:20:44,711] INFO in log: {}
+[2018-10-26 17:20:44,746] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-26 17:20:44,746] INFO in log: {}
+[2018-10-26 17:20:44,783] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-26 17:20:44,784] INFO in log: {}
+[2018-10-26 17:20:44,832] INFO in log: BEGIN (implicit)
+[2018-10-26 17:20:44,834] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:44,835] INFO in log: {'name': 'FOF'}
+[2018-10-26 17:20:44,863] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:44,864] INFO in log: {'name': 'QDII'}
+[2018-10-26 17:20:44,894] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:44,895] INFO in log: {'name': '保本型'}
+[2018-10-26 17:20:44,932] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:44,933] INFO in log: {'name': '债券型'}
+[2018-10-26 17:20:44,971] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:44,971] INFO in log: {'name': '商品型'}
+[2018-10-26 17:20:45,006] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:45,006] INFO in log: {'name': '混合型'}
+[2018-10-26 17:20:45,029] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:45,030] INFO in log: {'name': '股票型'}
+[2018-10-26 17:20:45,051] INFO in log: INSERT INTO categorys (name) VALUES (%(name)s)
+[2018-10-26 17:20:45,052] INFO in log: {'name': '货币市场型'}
+[2018-10-26 17:20:45,088] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,088] INFO in log: {'name': '', 'categoryId': 1}
+[2018-10-26 17:20:45,115] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,116] INFO in log: {'name': 'QDII股票', 'categoryId': 2}
+[2018-10-26 17:20:45,146] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,146] INFO in log: {'name': 'QDII债券', 'categoryId': 2}
+[2018-10-26 17:20:45,177] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,178] INFO in log: {'name': 'QDII其他', 'categoryId': 2}
+[2018-10-26 17:20:45,206] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,206] INFO in log: {'name': 'QDII混合', 'categoryId': 2}
+[2018-10-26 17:20:45,238] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,239] INFO in log: {'name': '', 'categoryId': 3}
+[2018-10-26 17:20:45,267] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,267] INFO in log: {'name': '可转换债', 'categoryId': 4}
+[2018-10-26 17:20:45,295] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,295] INFO in log: {'name': '可投转债', 'categoryId': 4}
+[2018-10-26 17:20:45,335] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,336] INFO in log: {'name': '二级债基', 'categoryId': 4}
+[2018-10-26 17:20:45,369] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,370] INFO in log: {'name': '纯债', 'categoryId': 4}
+[2018-10-26 17:20:45,386] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,386] INFO in log: {'name': '债券型指数基金', 'categoryId': 4}
+[2018-10-26 17:20:45,403] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,404] INFO in log: {'name': '短期理财', 'categoryId': 4}
+[2018-10-26 17:20:45,428] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,428] INFO in log: {'name': '一级债基', 'categoryId': 4}
+[2018-10-26 17:20:45,449] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,450] INFO in log: {'name': '债券型分级基金', 'categoryId': 4}
+[2018-10-26 17:20:45,469] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,469] INFO in log: {'name': '债券型封闭基金', 'categoryId': 4}
+[2018-10-26 17:20:45,501] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,502] INFO in log: {'name': '', 'categoryId': 5}
+[2018-10-26 17:20:45,538] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,539] INFO in log: {'name': '偏股型', 'categoryId': 6}
+[2018-10-26 17:20:45,565] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,566] INFO in log: {'name': '灵活配置型', 'categoryId': 6}
+[2018-10-26 17:20:45,583] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,584] INFO in log: {'name': '行业偏股型', 'categoryId': 6}
+[2018-10-26 17:20:45,603] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,603] INFO in log: {'name': '其他混合型', 'categoryId': 6}
+[2018-10-26 17:20:45,618] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,619] INFO in log: {'name': '偏债型', 'categoryId': 6}
+[2018-10-26 17:20:45,639] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,639] INFO in log: {'name': '绝对收益', 'categoryId': 6}
+[2018-10-26 17:20:45,664] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,664] INFO in log: {'name': '股债平衡型', 'categoryId': 6}
+[2018-10-26 17:20:45,681] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,681] INFO in log: {'name': '沪港深', 'categoryId': 6}
+[2018-10-26 17:20:45,702] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,702] INFO in log: {'name': '股票型指数基金', 'categoryId': 7}
+[2018-10-26 17:20:45,720] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,720] INFO in log: {'name': '股票型主动管理', 'categoryId': 7}
+[2018-10-26 17:20:45,738] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,739] INFO in log: {'name': '股票型行业基金', 'categoryId': 7}
+[2018-10-26 17:20:45,758] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,758] INFO in log: {'name': '沪港深', 'categoryId': 7}
+[2018-10-26 17:20:45,783] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,783] INFO in log: {'name': '股票型分级基金', 'categoryId': 7}
+[2018-10-26 17:20:45,811] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,811] INFO in log: {'name': '股票型封闭基金', 'categoryId': 7}
+[2018-10-26 17:20:45,831] INFO in log: INSERT INTO `subCategorys` (name, `categoryId`) VALUES (%(name)s, %(categoryId)s)
+[2018-10-26 17:20:45,831] INFO in log: {'name': '', 'categoryId': 8}
+[2018-10-26 17:20:45,856] INFO in log: COMMIT
+[2018-10-26 17:20:45,905] INFO in _internal: 127.0.0.1 - - [26/Oct/2018 17:20:45] "GET / HTTP/1.1" 200 -
