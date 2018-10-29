@@ -67,7 +67,6 @@ def cache_key():
 
 @app.route('/', methods=['get'])
 def index():
-
     return 'index'
 
 
@@ -409,6 +408,27 @@ def getfoudListByPaged():
 
     # app.logger.info(dataPaged)
     r = ResultDtos.PagedResultDto(totalCount=totalCount, items=items, isEntity=False)
+    return r.data
+
+
+@app.route('/funds/subCategorys')
+def getSubCategorys():
+    request_args_dicts = request.args.to_dict()
+    category = None  # 一级菜单name
+    for d in request_args_dicts:  # 忽略大小写
+        if 'category'.lower() == d.lower():
+            category = request_args_dicts.get(d)
+    categorys = []
+    subCategorys = []
+    if category:
+        categoryORM = db.session.query(Category).filter(Category.name == category).one()
+        subCategorys = [c.name for c in categoryORM.subCategorys]
+    else:
+        categorys_tuple_list = db.session.query(Category.name).all()
+        # 一级菜单
+        categorys = [x[0] for x in categorys_tuple_list]
+    dicts = {'categorys': categorys, 'subCategorys': subCategorys}
+    r = ResultDtos.NonPagedResultDto(items=[dicts], isEntity=False)
     return r.data
 
 

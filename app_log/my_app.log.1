@@ -1,0 +1,324 @@
+[2018-10-29 16:55:37,028] INFO in _internal:  * Restarting with stat
+[2018-10-29 16:55:37,794] WARNING in _internal:  * Debugger is active!
+[2018-10-29 16:55:37,801] INFO in _internal:  * Debugger PIN: 729-978-626
+[2018-10-29 16:55:37,810] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-29 16:55:39,015] INFO in webSpider: url：http://127.0.0.1:5000/funds/subCategorys，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:55:39,065] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-29 16:55:39,066] INFO in log: {}
+[2018-10-29 16:55:39,070] INFO in log: SELECT DATABASE()
+[2018-10-29 16:55:39,070] INFO in log: {}
+[2018-10-29 16:55:39,071] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-29 16:55:39,071] INFO in log: {}
+[2018-10-29 16:55:39,075] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-29 16:55:39,077] INFO in log: {}
+[2018-10-29 16:55:39,077] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-29 16:55:39,078] INFO in log: {}
+[2018-10-29 16:55:39,078] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-29 16:55:39,078] INFO in log: {}
+[2018-10-29 16:55:39,079] INFO in log: BEGIN (implicit)
+[2018-10-29 16:55:39,079] INFO in log: SELECT categorys.name AS categorys_name 
+FROM categorys
+[2018-10-29 16:55:39,079] INFO in log: {}
+[2018-10-29 16:55:39,081] INFO in log: COMMIT
+[2018-10-29 16:55:39,081] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:55:39] "GET /funds/subCategorys HTTP/1.1" 200 -
+[2018-10-29 16:55:43,585] INFO in webSpider: url：http://127.0.0.1:5000/funds/subCategorys?category=QDII，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:55:43,595] INFO in log: BEGIN (implicit)
+[2018-10-29 16:55:43,596] INFO in log: SELECT categorys.id AS categorys_id, categorys.name AS categorys_name 
+FROM categorys 
+WHERE categorys.name = %(name_1)s
+[2018-10-29 16:55:43,597] INFO in log: {'name_1': 'QDII'}
+[2018-10-29 16:55:43,599] INFO in log: SELECT `subCategorys`.id AS `subCategorys_id`, `subCategorys`.name AS `subCategorys_name`, `subCategorys`.`categoryId` AS `subCategorys_categoryId` 
+FROM `subCategorys` 
+WHERE %(param_1)s = `subCategorys`.`categoryId`
+[2018-10-29 16:55:43,599] INFO in log: {'param_1': 2}
+[2018-10-29 16:55:43,603] INFO in log: COMMIT
+[2018-10-29 16:55:43,604] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:55:43] "GET /funds/subCategorys?category=QDII HTTP/1.1" 200 -
+[2018-10-29 16:55:46,489] INFO in webSpider: url：http://127.0.0.1:5000/funds/subCategorys?category=QDII，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:55:46,490] INFO in log: BEGIN (implicit)
+[2018-10-29 16:55:46,491] INFO in log: SELECT categorys.id AS categorys_id, categorys.name AS categorys_name 
+FROM categorys 
+WHERE categorys.name = %(name_1)s
+[2018-10-29 16:55:46,491] INFO in log: {'name_1': 'QDII'}
+[2018-10-29 16:55:46,492] INFO in log: SELECT `subCategorys`.id AS `subCategorys_id`, `subCategorys`.name AS `subCategorys_name`, `subCategorys`.`categoryId` AS `subCategorys_categoryId` 
+FROM `subCategorys` 
+WHERE %(param_1)s = `subCategorys`.`categoryId`
+[2018-10-29 16:55:46,493] INFO in log: {'param_1': 2}
+[2018-10-29 16:55:46,494] INFO in log: COMMIT
+[2018-10-29 16:55:46,495] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:55:46] "GET /funds/subCategorys?category=QDII HTTP/1.1" 200 -
+[2018-10-29 16:55:49,835] INFO in webSpider: url：http://127.0.0.1:5000/funds/subCategorys，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:55:49,836] INFO in log: BEGIN (implicit)
+[2018-10-29 16:55:49,837] INFO in log: SELECT categorys.name AS categorys_name 
+FROM categorys
+[2018-10-29 16:55:49,837] INFO in log: {}
+[2018-10-29 16:55:49,838] INFO in log: COMMIT
+[2018-10-29 16:55:49,839] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:55:49] "GET /funds/subCategorys HTTP/1.1" 200 -
+[2018-10-29 16:56:27,402] INFO in _internal:  * Detected change in 'D:\\github\\pythonFlaskSpider\\webSpider.py', reloading
+[2018-10-29 16:56:27,464] INFO in _internal:  * Restarting with stat
+[2018-10-29 16:56:28,070] WARNING in _internal:  * Debugger is active!
+[2018-10-29 16:56:28,076] INFO in _internal:  * Debugger PIN: 729-978-626
+[2018-10-29 16:56:28,082] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-10-29 16:57:47,963] INFO in webSpider: url：http://127.0.0.1:5000/funds，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Purpose: prefetch
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:57:48,031] INFO in log: SHOW VARIABLES LIKE 'sql_mode'
+[2018-10-29 16:57:48,032] INFO in log: {}
+[2018-10-29 16:57:48,036] INFO in log: SELECT DATABASE()
+[2018-10-29 16:57:48,037] INFO in log: {}
+[2018-10-29 16:57:48,037] INFO in log: show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+[2018-10-29 16:57:48,038] INFO in log: {}
+[2018-10-29 16:57:48,045] INFO in log: SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+[2018-10-29 16:57:48,045] INFO in log: {}
+[2018-10-29 16:57:48,046] INFO in log: SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+[2018-10-29 16:57:48,046] INFO in log: {}
+[2018-10-29 16:57:48,047] INFO in log: SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+[2018-10-29 16:57:48,047] INFO in log: {}
+[2018-10-29 16:57:48,048] INFO in log: BEGIN (implicit)
+[2018-10-29 16:57:48,049] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` 
+ LIMIT %(param_1)s
+[2018-10-29 16:57:48,049] INFO in log: {'param_1': 1}
+[2018-10-29 16:57:48,677] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:57:48,678] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:57:48,683] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:57:48,683] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:57:48,688] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:57:48,689] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:57:48,691] INFO in log: COMMIT
+[2018-10-29 16:57:48,692] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:57:48] "GET /funds HTTP/1.1" 200 -
+[2018-10-29 16:57:57,633] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword=005087，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:57:57,635] INFO in log: BEGIN (implicit)
+[2018-10-29 16:57:57,636] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:57:57,637] INFO in log: {'code_1': '005087', 'title_1': '005087', 'param_1': 1}
+[2018-10-29 16:57:57,765] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:57:57,766] INFO in log: {'code_1': '005087', 'title_1': '005087', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:57:57,767] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:57:57,768] INFO in log: {'code_1': '005087', 'title_1': '005087', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:57:57,769] INFO in log: COMMIT
+[2018-10-29 16:57:57,770] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:57:57] "GET /funds?keyword=005087 HTTP/1.1" 200 -
+[2018-10-29 16:58:04,479] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword=南华现金宝B，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:04,480] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:04,481] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:04,481] INFO in log: {'code_1': '南华现金宝B', 'title_1': '南华现金宝B', 'param_1': 1}
+[2018-10-29 16:58:04,583] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:58:04,583] INFO in log: {'code_1': '南华现金宝B', 'title_1': '南华现金宝B', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:58:04,587] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:58:04,587] INFO in log: {'code_1': '南华现金宝B', 'title_1': '南华现金宝B', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:58:04,590] INFO in log: COMMIT
+[2018-10-29 16:58:04,591] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:58:04] "GET /funds?keyword=%E5%8D%97%E5%8D%8E%E7%8E%B0%E9%87%91%E5%AE%9DB HTTP/1.1" 200 -
+[2018-10-29 16:58:07,436] INFO in webSpider: url：http://127.0.0.1:5000/funds，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Purpose: prefetch
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:07,438] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:07,439] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:07,440] INFO in log: {'param_1': 1}
+[2018-10-29 16:58:07,465] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:58:07,466] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:58:07,470] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:58:07,470] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:58:07,478] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:58:07,479] INFO in log: {'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:58:07,482] INFO in log: COMMIT
+[2018-10-29 16:58:07,483] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:58:07] "GET /funds HTTP/1.1" 200 -
+[2018-10-29 16:58:17,532] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword="招商安德保本C，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:17,534] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:17,534] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:17,535] INFO in log: {'code_1': '"招商安德保本C', 'title_1': '"招商安德保本C', 'param_1': 1}
+[2018-10-29 16:58:17,545] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE funds.code = %(code_1)s OR funds.title = %(title_1)s) AS anon_1
+[2018-10-29 16:58:17,545] INFO in log: {'code_1': '"招商安德保本C', 'title_1': '"招商安德保本C'}
+[2018-10-29 16:58:17,548] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE funds.code = %(code_1)s OR funds.title = %(title_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:58:17,549] INFO in log: {'code_1': '"招商安德保本C', 'title_1': '"招商安德保本C', 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:58:17,551] INFO in log: COMMIT
+[2018-10-29 16:58:17,552] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:58:17] "GET /funds?keyword=%22%E6%8B%9B%E5%95%86%E5%AE%89%E5%BE%B7%E4%BF%9D%E6%9C%ACC HTTP/1.1" 200 -
+[2018-10-29 16:58:31,492] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword=招商安德保本C，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:31,494] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:31,497] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:31,498] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'param_1': 1}
+[2018-10-29 16:58:31,508] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:58:31,508] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:58:31,510] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:58:31,511] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:58:31,513] INFO in log: COMMIT
+[2018-10-29 16:58:31,514] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:58:31] "GET /funds?keyword=%E6%8B%9B%E5%95%86%E5%AE%89%E5%BE%B7%E4%BF%9D%E6%9C%ACC HTTP/1.1" 200 -
+[2018-10-29 16:58:37,969] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword=招商安德保本C，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:37,970] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:37,971] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:37,971] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'param_1': 1}
+[2018-10-29 16:58:37,978] INFO in log: SELECT count(*) AS count_1 
+FROM (SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s) AS anon_1
+[2018-10-29 16:58:37,978] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0)}
+[2018-10-29 16:58:37,980] INFO in log: SELECT funds.id AS funds_id, funds.code AS funds_code, funds.title AS funds_title, funds.category AS funds_category, funds.`subCategory` AS `funds_subCategory`, funds.`mechanismCode` AS `funds_mechanismCode`, funds.`createTime` AS `funds_createTime`, fundsnetvalue.id AS fundsnetvalue_id, fundsnetvalue.`annualizedRate` AS `fundsnetvalue_annualizedRate`, fundsnetvalue.`unitNav` AS `fundsnetvalue_unitNav`, fundsnetvalue.`navDate` AS `fundsnetvalue_navDate`, fundsnetvalue.`createTime` AS `fundsnetvalue_createTime`, fundsnetvalue.`fundId` AS `fundsnetvalue_fundId` 
+FROM funds INNER JOIN fundsnetvalue ON funds.id = fundsnetvalue.`fundId` 
+WHERE (funds.code = %(code_1)s OR funds.title = %(title_1)s) AND fundsnetvalue.`navDate` = %(navDate_1)s 
+ LIMIT %(param_1)s, %(param_2)s
+[2018-10-29 16:58:37,981] INFO in log: {'code_1': '招商安德保本C', 'title_1': '招商安德保本C', 'navDate_1': datetime.datetime(2018, 10, 29, 0, 0), 'param_1': 0, 'param_2': 10}
+[2018-10-29 16:58:37,982] INFO in log: COMMIT
+[2018-10-29 16:58:37,983] INFO in _internal: 127.0.0.1 - - [29/Oct/2018 16:58:37] "GET /funds?keyword=%E6%8B%9B%E5%95%86%E5%AE%89%E5%BE%B7%E4%BF%9D%E6%9C%ACC HTTP/1.1" 200 -
+[2018-10-29 16:58:42,774] INFO in webSpider: url：http://127.0.0.1:5000/funds?keyword=002390，heards：Host: 127.0.0.1:5000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+
+[2018-10-29 16:58:42,776] INFO in log: BEGIN (implicit)
+[2018-10-29 16:58:42,778] INFO in log: SELECT max(fundsnetvalue.`navDate`) AS max_1 
+FROM fundsnetvalue, funds 
+WHERE funds.id = fundsnetvalue.`fundId` AND (funds.code = %(code_1)s OR funds.title = %(title_1)s) 
+ LIMIT %(param_1)s
+[2018-10-29 16:58:42,778] INFO in log: {'code_1': '002390', 'title_1': '002390', 'param_1': 1}
+[2018-10-29 16:58:42,840] INFO in log: COMMIT
+[2018-10-29 16:58:54,654] INFO in log: COMMIT

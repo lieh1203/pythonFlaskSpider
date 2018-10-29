@@ -74,4 +74,4 @@ class SubCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20))  # 基金所属二级类别名称
     categoryId = db.Column(db.Integer, db.ForeignKey('categorys.id'))  # Category外键
-    Category = db.relationship('Category', backref=db.backref('subCategorys'))
+    category = db.relationship('Category', backref=db.backref('subCategorys'))
