@@ -25,7 +25,7 @@ class NonPagedResultDto(object):
     items = []
     data = ''
 
-    def __init__(self, items=[], isEntity=True):
+    def __init__(self, items=[], isEntity=True, isSuccess=True, error=''):
         lists = []
         if isEntity:
             for e in items:
@@ -44,7 +44,8 @@ class NonPagedResultDto(object):
 
         self.__objData = {
             'data': self.items,
-            'success': True
+            'success': isSuccess,
+            'error': error
         }
         self.data = json.dumps(self.__objData, ensure_ascii=False)
 
