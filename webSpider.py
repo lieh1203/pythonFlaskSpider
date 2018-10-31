@@ -17,6 +17,7 @@ import json
 from logging.config import dictConfig
 import urllib
 import time
+from dateutil.relativedelta import relativedelta
 
 dictConfig({'version': 1,
             'formatters': {'default': {
@@ -182,7 +183,7 @@ def getexchangeratequotationlist():
 @cache.cached(timeout=60 * 60, key_prefix=cache_key)
 def getfundUrl(code):
     fundKey = config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
-    url = 'https://mptest.fofinvesting.com/wxapi/third/token?key={key}&code={code}&type=fund' \
+    url = 'https://mp.fofinvesting.com/wxapi/third/token?key={key}&code={code}&type=fund' \
         .format(key=fundKey, code=code)
     # app.logger.info(url)
     http = urllib3.PoolManager()
@@ -209,7 +210,7 @@ def importfunds():
     dataJson = None
     http = urllib3.PoolManager()
     fundKey = config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
-    url = 'https://mptest.fofinvesting.com/wxapi/third/fundlist?key={0}'.format(fundKey)
+    url = 'https://mp.fofinvesting.com/wxapi/third/fundlist?key={0}'.format(fundKey)
     app.logger.info(url)
     r = http.request('get', url)
     dataJson = json.loads(r.data.decode('utf-8'))
@@ -325,13 +326,18 @@ def getfoudListByPaged():
     request_args_dicts = request.args.to_dict()
     pageindex = None
     pagesize = None
-    navDate = None
+    # navDate = None
     keyword = None
     codes = None
     category = None
     subCategory = None
     orgcode = None  # 机构code
-
+    '''
+    基金列表接口调整 
+    1.返回近3个月的有基金净值(unitNav)的基金数据(包括按大小类查询)
+    2.基金如果没有净值返回null给到前端，前端会根据null处理，不能返回0
+    不再根据日期查询了
+    '''
     for d in request_args_dicts:  # 忽略大小写
         if 'pageindex'.lower() == d.lower():
             pageindex = request_args_dicts.get(d)
@@ -341,8 +347,8 @@ def getfoudListByPaged():
             keyword = request_args_dicts.get(d)
         if 'codes'.lower() == d.lower():
             codes = request_args_dicts.get(d)
-        if 'time'.lower() == d.lower():
-            navDate = request_args_dicts.get(d)
+        # if 'time'.lower() == d.lower():
+        #     navDate = request_args_dicts.get(d)
         if 'category'.lower() == d.lower():
             category = request_args_dicts.get(d)
         if 'subCategory'.lower() == d.lower():
@@ -362,12 +368,17 @@ def getfoudListByPaged():
 
     # 拼接查询条件参数数组
     params = []
+    # 默认查询3个月内有基金净值的数据
+    limitDate = datetime.datetime.today().date() + relativedelta(months=-3)
 
-    if keyword:
-        params.append(db.or_(Fund.code == keyword, Fund.title == keyword))
+    if keyword or codes:
+        if keyword:
+            params.append(db.or_(Fund.code == keyword, Fund.title == keyword))
 
-    if codes:
-        params.append(Fund.code.in_(codes.split(',')))
+        if codes:
+            params.append(Fund.code.in_(codes.split(',')))
+    else:
+        params.append(db.cast(FundNetValue.navDate, db.Date) >= limitDate)
 
     if category:
         params.append(Fund.category == category)
@@ -378,16 +389,16 @@ def getfoudListByPaged():
     if orgcode:
         params.append(Fund.mechanismCode == orgcode)
 
-    if navDate:  # 比较日期格式，不匹配时分秒格式
-        params.append(db.cast(FundNetValue.navDate, db.Date) == db.cast(navDate, db.Date))
+    # if navDate:  # 比较日期格式，不匹配时分秒格式
+    #     params.append(db.cast(FundNetValue.navDate, db.Date) == db.cast(navDate, db.Date))
 
-    # 根据关键字查询最新的navDate对应的那批数据
-    max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).filter(Fund.id == FundNetValue.fundId).filter(
-        *params).first()
-    if max_navDate[0]:
-        params.append(FundNetValue.navDate == max_navDate[0])
+    # 关键字code,title查询最新的navDate对应的那批数据，
+    # max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).filter(Fund.id == FundNetValue.fundId).filter(
+    #     *params).first()
+    # if max_navDate[0]:
+    #     params.append(FundNetValue.navDate == max_navDate[0])
 
-    data = db.session.query(Fund, FundNetValue).join(FundNetValue).filter(*params)
+    data = db.session.query(Fund, FundNetValue).join(FundNetValue).filter(*params).order_by(Fund.code)
     totalCount = data.count()
     dataPaged = data.paginate(page=pageindex, per_page=pagesize, error_out=False).items
     items = []
@@ -401,7 +412,10 @@ def getfoudListByPaged():
         dataDic['subCategory'] = f.subCategory
         dataDic['mechanismCode'] = f.mechanismCode
         dataDic['annualizedRate'] = fnv.annualizedRate
-        dataDic['unitNav'] = fnv.unitNav
+        if not fnv.unitNav:
+            dataDic['unitNav'] = 0
+        else:
+            dataDic['unitNav'] = fnv.unitNav
         dataDic['navDate'] = fnv.navDate
         dataDic['createTime'] = fnv.createTime
         items.append(dataDic)
@@ -446,5 +460,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    #app.run()
-    manager.run()
+    app.run()
+    # manager.run()
