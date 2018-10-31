@@ -150,11 +150,11 @@ def getexchangeratequotationlist():
 
         if issuingBeginTime:
             # param.append(db.cast(ExchangeRateQuotation.issuingTime, db.Date) >= db.cast(issuingBeginTime, db.Date))
-            param.append(ExchangeRateQuotation.issuingTime >= datetime.datetime.strptime(issuingBeginTime, "%Y-%m-%d"))
+            param.append(ExchangeRateQuotation.acquisitionTime >= datetime.datetime.strptime(issuingBeginTime, "%Y-%m-%d"))
 
         if issuingEndTime:
             # param.append(db.cast(ExchangeRateQuotation.issuingTime, db.Date) < db.cast(issuingEndTime, db.Date))
-            param.append(ExchangeRateQuotation.issuingTime < datetime.datetime.strptime(issuingEndTime,
+            param.append(ExchangeRateQuotation.acquisitionTime < datetime.datetime.strptime(issuingEndTime,
                                                                                         "%Y-%m-%d") + datetime.timedelta(
                 days=1))
 
@@ -185,20 +185,34 @@ def getfundUrl(code):
     fundKey = config.config[os.getenv('FLASK_CONFIG') or 'default'].fundKey
     url = 'https://mp.fofinvesting.com/wxapi/third/token?key={key}&code={code}&type=fund' \
         .format(key=fundKey, code=code)
-    # app.logger.info(url)
+    app.logger.info(url)
     http = urllib3.PoolManager()
     r = http.request('get', url)
     dataJson = json.loads(r.data.decode('utf-8'))
+
+    # writeJson
+    with open('getfundUrl.txt', mode='w', encoding='utf-8') as f:
+        # f.write(str(dataJson))
+        json.dump(dataJson, f, ensure_ascii=False)
+
     result = {}
+    isSuccess = True
+    error = ''
     if dataJson.get('status') and dataJson.get('status') == 'error':
-        return result
+        result['url'] = ''
+        result['code'] = ''
+        error = dataJson.get('message')
+        isSuccess = False
     elif dataJson.get('status') and dataJson.get('status') == 'success':
         if dataJson.get('url') and dataJson.get('code'):
             result['url'] = dataJson.get('url')
             result['code'] = dataJson.get('code')
     else:
-        return result
-    r = ResultDtos.NonPagedResultDto(items=[result], isEntity=False)
+        result['url'] = ''
+        result['code'] = ''
+        error = '第三方接口异常'
+        isSuccess = False
+    r = ResultDtos.NonPagedResultDto(items=[result], isEntity=False, isSuccess=isSuccess, error=error)
     return r.data
 
 
@@ -228,96 +242,109 @@ def importfunds():
         # f.write(str(dataJson))
         json.dump(dataJson, f, ensure_ascii=False)
 
-    if dataJson.get('status') and dataJson.get('status') == 'error':
-        return '没有权限或接口异常'
-    else:
-        if dataJson.get('amount') and dataJson.get('amount') > 0:
-            funds = dataJson.get('funds')
-            now_time = datetime.datetime.now()
+    try:
+        if dataJson.get('status') and dataJson.get('status') == 'error':
+            return '没有权限或接口异常'
+        else:
+            if dataJson.get('amount') and dataJson.get('amount') > 0:
+                funds = dataJson.get('funds')
+                now_time = datetime.datetime.now()
 
-            list_fund_code_navDate = []
-            # 查询最新的净值日期对应的数据
-            max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).first()
-            if max_navDate[0]:
-                # joinedload一次性join连接加载fund表数据
-                fundNetValues = FundNetValue.query.options(orm.joinedload(FundNetValue.fund)) \
-                    .filter(FundNetValue.navDate == max_navDate[0]).all()
-                for fnv in fundNetValues:
-                    fundCode = fnv.fund.code
-                    fundTitle = fnv.fund.title
-                    fundId = fnv.fund.id
-                    dict_fund_code_navDate = {}
-                    dict_fund_code_navDate['fundId'] = fundId
-                    dict_fund_code_navDate['fundCode'] = fundCode
-                    dict_fund_code_navDate['fundTitle'] = fundTitle
-                    dict_fund_code_navDate['navDate'] = max_navDate[0]
-                    list_fund_code_navDate.append(dict_fund_code_navDate)
+                list_fund_code_navDate = []
+                # 查询最新的净值日期对应的数据
+                max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).first()
+                if max_navDate[0]:
+                    # joinedload一次性join连接加载fund表数据
+                    fundNetValues = FundNetValue.query.options(orm.joinedload(FundNetValue.fund)) \
+                        .filter(FundNetValue.navDate == max_navDate[0]).all()
+                    for fnv in fundNetValues:
+                        fundCode = fnv.fund.code
+                        fundTitle = fnv.fund.title
+                        fundId = fnv.fund.id
+                        dict_fund_code_navDate = {}
+                        dict_fund_code_navDate['fundId'] = fundId
+                        dict_fund_code_navDate['fundCode'] = fundCode
+                        dict_fund_code_navDate['fundTitle'] = fundTitle
+                        dict_fund_code_navDate['navDate'] = max_navDate[0]
+                        list_fund_code_navDate.append(dict_fund_code_navDate)
 
-            fundsData = Fund.query.all()  # 基金基础表数据
+                fundsData = Fund.query.all()  # 基金基础表数据
 
-            for f in funds:
-                code = f.get('code')
-                title = f.get('title')
-                category = f.get('category')
-                annualizedRate = f.get('annualizedRate')
-                unitNav = f.get('unitNav')
-                navDate = f.get('navDate')
-                subCategory = f.get('subCategory')
-
-                fund_list = []
-                fund = None
-                if len(fundsData) > 0:
-                    # filter是懒加载，需要转换成List才能获得结果
-                    fund_list = list(filter(lambda x: x.code == code and x.title == title, fundsData))
-                if len(fund_list) > 0:
-                    fund = fund_list[0]
-                if not fund:  # 不存在基金基础表数据，就插入基础表和净值表记录
-                    fund = Fund(code=code, title=title, category=category, subCategory=subCategory, mechanismCode='fof',
-                                # fof 况客基金code
-                                createTime=now_time)
-                    fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav, navDate=navDate,
-                                                createTime=now_time, fund=fund)
-                    db.session.add(fundNetValue)
-                else:
-                    fund_list2 = list(
-                        filter(lambda f: f['fundCode'] and f['fundCode'] == code and f['fundTitle'] and f[
-                            'fundTitle'] == title,
-                               list_fund_code_navDate))
-                    fund2 = None
-                    if len(fund_list2) > 0:
-                        fund2 = fund_list2[0]
-                    if fund2:
-                        navDate_fund2 = fund2['navDate'].strftime('%Y-%m-%d')
-                        if navDate > navDate_fund2:  # 插入json中最新的净值时间对应数据
-                            fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
-                                                        navDate=navDate,
-                                                        createTime=now_time, fundId=int(fund2['fundId']))
-                            db.session.add(fundNetValue)
-                        elif navDate == navDate_fund2:  # 当天重复跑时，补全最新的数据
-                            fundNetValue = FundNetValue.query.filter(
-                                db.and_(FundNetValue.fundId == int(fund2['fundId']),
-                                        FundNetValue.navDate == navDate)).one()
-                            fundNetValue.annualizedRate = annualizedRate
-                            fundNetValue.unitNav = unitNav
-                            db.session.add(fundNetValue)
-                        else:  # todo 是否要补全以前的旧数据？
-                            pass
+                for f in funds:
+                    code = f.get('code')
+                    title = f.get('title')
+                    category = f.get('category')
+                    annualizedRate = f.get('annualizedRate')
+                    unitNav = f.get('unitNav')
+                    navDate = f.get('navDate')
+                    subCategory = f.get('subCategory')
+                    if not subCategory:  # 二级菜单不存在，用category填充
+                        subCategory = category
+                    fund_list = []
+                    fund = None
+                    if len(fundsData) > 0:
+                        # filter是懒加载，需要转换成List才能获得结果
+                        fund_list = list(filter(lambda x: x.code == code and x.title == title, fundsData))
+                    if len(fund_list) > 0:
+                        fund = fund_list[0]
+                    if not fund:  # 不存在基金基础表数据，就插入基础表和净值表记录
+                        fund = Fund(code=code, title=title, category=category, subCategory=subCategory,
+                                    mechanismCode='fof',
+                                    # fof 况客基金code
+                                    createTime=now_time)
+                        fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav, navDate=navDate,
+                                                    createTime=now_time, fund=fund)
+                        db.session.add(fundNetValue)
                     else:
-                        # 导入未获取到的新数据，旧的要过滤
-                        str_max_navDate = max_navDate[0].strftime('%Y-%m-%d')
-                        if navDate >= str_max_navDate:
-                            fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
-                                                        navDate=navDate,
-                                                        createTime=now_time, fundId=fund.id)
-                            db.session.add(fundNetValue)
+                        fund_list2 = list(
+                            filter(lambda f: f['fundCode'] and f['fundCode'] == code and f['fundTitle'] and f[
+                                'fundTitle'] == title,
+                                   list_fund_code_navDate))
+                        fund2 = None
+                        if len(fund_list2) > 0:
+                            fund2 = fund_list2[0]
+                        if fund2:
+                            navDate_fund2 = fund2['navDate'].strftime('%Y-%m-%d')
+                            if navDate > navDate_fund2:  # 插入json中最新的净值时间对应数据
+                                fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
+                                                            navDate=navDate,
+                                                            createTime=now_time, fundId=int(fund2['fundId']))
+                                db.session.add(fundNetValue)
+                            elif navDate == navDate_fund2:  # 当天重复跑时，补全最新的数据
+                                fundNetValue = FundNetValue.query.filter(
+                                    db.and_(FundNetValue.fundId == int(fund2['fundId']),
+                                            FundNetValue.navDate == navDate)).one()
+                                fundNetValue.annualizedRate = annualizedRate
+                                fundNetValue.unitNav = unitNav
+                                db.session.add(fundNetValue)
+                            else:  # todo 是否要补全以前的旧数据？
+                                pass
+                        else:
+                            flag = False
+                            if not max_navDate[0]:  # 说明净值表为空，则重新导入
+                                flag = True
+                            else:
+                                str_max_navDate = max_navDate[0].strftime('%Y-%m-%d')
+                                if navDate >= str_max_navDate:  # 导入未获取到的新数据，旧的要过滤
+                                    flag = True
+                            if flag:
+                                fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
+                                                            navDate=navDate,
+                                                            createTime=now_time, fundId=fund.id)
+                                db.session.add(fundNetValue)
 
-            db.session.commit()
-            db.session.close()
+                db.session.commit()
+                db.session.close()
 
-            end = time.time()
-            total_time = end - start
-            app.logger.info('记录 funds/importfunds 接口调用的耗时时间为：{0}'.format(total_time))
-            return 'ok'
+                end = time.time()
+                total_time = end - start
+                app.logger.info('记录 funds/importfunds 接口调用的耗时时间为：{0}'.format(total_time))
+                return 'ok'
+            else:
+                return 'ok'
+    except Exception as e:
+        app.logger.info('importfunds的异常：'+str(e))
+        return 'error'
 
 
 # 获取基金数据列表
@@ -460,5 +487,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    app.run()
-    # manager.run()
+    #app.run()
+    manager.run()
