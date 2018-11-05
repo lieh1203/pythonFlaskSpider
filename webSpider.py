@@ -33,7 +33,7 @@ dictConfig({'version': 1,
                     'class': 'logging.handlers.RotatingFileHandler',
                     'formatter': 'default',
                     'filename': 'app_log/my_app.log',
-                    'maxBytes': 30240,
+                    'maxBytes': 10485760,
                     'backupCount': 8,
                     'encoding': 'utf-8'
                 }
@@ -463,10 +463,11 @@ def getSubCategorys():
     subCategorys = []
     if category:
         categoryORM = db.session.query(Category).filter(Category.name == category).one()
-        subCategorys = [c.name for c in categoryORM.subCategorys]
+
+        subCategorys = [c.name for c in categoryORM.subCategorys] #subCategory对象的排序定义在models中了
     else:
-        categorys_tuple_list = db.session.query(Category.name).all()
-        # 一级菜单
+        categorys_tuple_list = db.session.query(Category.name).order_by(Category.priority.desc()).all()
+        # 获取一级菜单的name集合
         categorys = [x[0] for x in categorys_tuple_list]
     dicts = {'categorys': categorys, 'subCategorys': subCategorys}
     r = ResultDtos.NonPagedResultDto(items=[dicts], isEntity=False)
@@ -487,5 +488,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    #app.run()
-    manager.run()
+    app.run()
+    #manager.run()
