@@ -67,11 +67,15 @@ class Category(db.Model):
     __tablename__ = 'categorys'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20))  # 基金所属一级类别名称
+    priority = db.Column(db.Integer)
 
 
 class SubCategory(db.Model):
     __tablename__ = 'subCategorys'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20))  # 基金所属二级类别名称
+    priority = db.Column(db.Integer)
     categoryId = db.Column(db.Integer, db.ForeignKey('categorys.id'))  # Category外键
-    category = db.relationship('Category', backref=db.backref('subCategorys'))
+    #或者把subCategorys定义成动态加载query category = db.relationship('Category', backref=db.backref('subCategorys',lazy="dynamic"))
+    #然后在category.subCategorys 获得属性后再调用order_by(priority.desc())进行排序
+    category = db.relationship('Category', backref=db.backref('subCategorys',order_by=priority.desc())) #直接在model中定义排序规则
