@@ -295,6 +295,7 @@ def importfunds():
                         fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav, navDate=navDate,
                                                     createTime=now_time, fund=fund)
                         db.session.add(fundNetValue)
+                        db.session.commit()
                     else:
                         fund_list2 = list(
                             filter(lambda f: f['fundCode'] and f['fundCode'] == code and f['fundTitle'] and f[
@@ -310,6 +311,7 @@ def importfunds():
                                                             navDate=navDate,
                                                             createTime=now_time, fundId=int(fund2['fundId']))
                                 db.session.add(fundNetValue)
+                                db.session.commit()
                             elif navDate == navDate_fund2:  # 当天重复跑时，补全最新的数据
                                 fundNetValue = FundNetValue.query.filter(
                                     db.and_(FundNetValue.fundId == int(fund2['fundId']),
@@ -317,6 +319,7 @@ def importfunds():
                                 fundNetValue.annualizedRate = annualizedRate
                                 fundNetValue.unitNav = unitNav
                                 db.session.add(fundNetValue)
+                                db.session.commit()
                             else:  # todo 是否要补全以前的旧数据？
                                 pass
                         else:
@@ -332,8 +335,9 @@ def importfunds():
                                                             navDate=navDate,
                                                             createTime=now_time, fundId=fund.id)
                                 db.session.add(fundNetValue)
+                                db.session.commit()
 
-                db.session.commit()
+                #db.session.commit()
                 db.session.close()
 
                 end = time.time()
