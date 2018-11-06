@@ -5,7 +5,7 @@ from config import config
 from flask_cache import Cache
 
 # 创建扩展对象，但没有初始化
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={'autoflush': False, 'autocommit': False})
 orm = orm
 cache = Cache()
 

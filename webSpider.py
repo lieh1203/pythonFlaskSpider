@@ -68,6 +68,10 @@ def cache_key():
 
 @app.route('/', methods=['get'])
 def index():
+    # c1 =  db.session.query(Category).filter(Category.name == 'FOF')
+    # c1.update({Category.priority: 5})
+    # db.session.commit()
+    # db.session.close()
     return 'index'
 
 
@@ -150,12 +154,13 @@ def getexchangeratequotationlist():
 
         if issuingBeginTime:
             # param.append(db.cast(ExchangeRateQuotation.issuingTime, db.Date) >= db.cast(issuingBeginTime, db.Date))
-            param.append(ExchangeRateQuotation.acquisitionTime >= datetime.datetime.strptime(issuingBeginTime, "%Y-%m-%d"))
+            param.append(
+                ExchangeRateQuotation.acquisitionTime >= datetime.datetime.strptime(issuingBeginTime, "%Y-%m-%d"))
 
         if issuingEndTime:
             # param.append(db.cast(ExchangeRateQuotation.issuingTime, db.Date) < db.cast(issuingEndTime, db.Date))
             param.append(ExchangeRateQuotation.acquisitionTime < datetime.datetime.strptime(issuingEndTime,
-                                                                                        "%Y-%m-%d") + datetime.timedelta(
+                                                                                            "%Y-%m-%d") + datetime.timedelta(
                 days=1))
 
         items = []
@@ -247,6 +252,8 @@ def importfunds():
             return '没有权限或接口异常'
         else:
             if dataJson.get('amount') and dataJson.get('amount') > 0:
+                bulk_funds = []
+                bulk_fundsnetvalue = []
                 funds = dataJson.get('funds')
                 now_time = datetime.datetime.now()
 
@@ -285,6 +292,7 @@ def importfunds():
                     if len(fundsData) > 0:
                         # filter是懒加载，需要转换成List才能获得结果
                         fund_list = list(filter(lambda x: x.code == code and x.title == title, fundsData))
+
                     if len(fund_list) > 0:
                         fund = fund_list[0]
                     if not fund:  # 不存在基金基础表数据，就插入基础表和净值表记录
@@ -292,10 +300,15 @@ def importfunds():
                                     mechanismCode='fof',
                                     # fof 况客基金code
                                     createTime=now_time)
+                        db.session.add(fund)
                         fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav, navDate=navDate,
                                                     createTime=now_time, fund=fund)
-                        db.session.add(fundNetValue)
-                        db.session.commit()
+                        bulk_fundsnetvalue.append(fundNetValue)
+                        # try:
+                        #     db.session.add(fundNetValue)
+                        #     db.session.commit()
+                        # except Exception as e:
+                        #     app.logger.info('importfunds提交数据库异常：' + str(e))
                     else:
                         fund_list2 = list(
                             filter(lambda f: f['fundCode'] and f['fundCode'] == code and f['fundTitle'] and f[
@@ -304,22 +317,31 @@ def importfunds():
                         fund2 = None
                         if len(fund_list2) > 0:
                             fund2 = fund_list2[0]
+                        # 判断json数据是否存在于数据库中最新净值时间对应的数据
                         if fund2:
                             navDate_fund2 = fund2['navDate'].strftime('%Y-%m-%d')
-                            if navDate > navDate_fund2:  # 插入json中最新的净值时间对应数据
+                            if navDate > navDate_fund2:  # 插入json中大于最新的净值时间对应的json数据
                                 fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
                                                             navDate=navDate,
                                                             createTime=now_time, fundId=int(fund2['fundId']))
-                                db.session.add(fundNetValue)
-                                db.session.commit()
+                                bulk_fundsnetvalue.append(fundNetValue)
+                                # try:
+                                #     db.session.add(fundNetValue)
+                                #     db.session.commit()
+                                # except Exception as e:
+                                #     app.logger.info('importfunds提交数据库异常：' + str(e))
                             elif navDate == navDate_fund2:  # 当天重复跑时，补全最新的数据
                                 fundNetValue = FundNetValue.query.filter(
                                     db.and_(FundNetValue.fundId == int(fund2['fundId']),
                                             FundNetValue.navDate == navDate)).one()
                                 fundNetValue.annualizedRate = annualizedRate
                                 fundNetValue.unitNav = unitNav
-                                db.session.add(fundNetValue)
-                                db.session.commit()
+                                bulk_fundsnetvalue.append(fundNetValue)
+                                # try:
+                                #     db.session.add(fundNetValue)
+                                #     db.session.commit()
+                                # except Exception as e:
+                                #     app.logger.info('importfunds提交数据库异常：' + str(e))
                             else:  # todo 是否要补全以前的旧数据？
                                 pass
                         else:
@@ -334,10 +356,16 @@ def importfunds():
                                 fundNetValue = FundNetValue(annualizedRate=annualizedRate, unitNav=unitNav,
                                                             navDate=navDate,
                                                             createTime=now_time, fundId=fund.id)
-                                db.session.add(fundNetValue)
-                                db.session.commit()
-
-                #db.session.commit()
+                                bulk_fundsnetvalue.append(fundNetValue)
+                                # try:
+                                #     db.session.add(fundNetValue)
+                                #     db.session.commit()
+                                # except Exception as e:
+                                #     app.logger.info('importfunds提交数据库异常：' + str(e))
+                # 这里要提交funds的数据，bulk_fundsnetvalue才能拿到主键id
+                db.session.commit()
+                db.session.bulk_save_objects(bulk_fundsnetvalue, return_defaults=False)
+                db.session.commit()
                 db.session.close()
 
                 end = time.time()
@@ -347,7 +375,8 @@ def importfunds():
             else:
                 return 'ok'
     except Exception as e:
-        app.logger.info('importfunds的异常：'+str(e))
+        app.logger.info('importfunds的异常：' + str(e))
+        db.session.close()
         return 'error'
 
 
@@ -404,8 +433,15 @@ def getfoudListByPaged():
 
     if keyword or codes:
         if keyword:
-            params.append(db.or_(Fund.code == keyword, Fund.title == keyword))
-
+            if keyword.isalnum():  # 判断是否数字和中文的组合，是否为数字或字母
+                chars=list(filter((lambda ch : '\u4e00' <= ch <= '\u9fff'),list(keyword)))
+                if chars.__len__()>0: #title，有中文
+                    params.append(Fund.title.like('%' + keyword + '%'))
+                else:
+                    if keyword.isalnum():  # code包含字母和数字组合
+                        if keyword.__len__() < 6:  # 小于6位用0补全
+                            keyword = keyword.zfill(6)
+                        params.append(Fund.code == keyword)
         if codes:
             params.append(Fund.code.in_(codes.split(',')))
     else:
@@ -423,13 +459,19 @@ def getfoudListByPaged():
     # if navDate:  # 比较日期格式，不匹配时分秒格式
     #     params.append(db.cast(FundNetValue.navDate, db.Date) == db.cast(navDate, db.Date))
 
-    # 关键字code,title查询最新的navDate对应的那批数据，
     # max_navDate = db.session.query(db.func.max(FundNetValue.navDate)).filter(Fund.id == FundNetValue.fundId).filter(
     #     *params).first()
     # if max_navDate[0]:
     #     params.append(FundNetValue.navDate == max_navDate[0])
 
-    data = db.session.query(Fund, FundNetValue).join(FundNetValue).filter(*params).order_by(Fund.code)
+    Fund2=orm.aliased(Fund) #定义表别名，用于子查询
+    #根据title和code分组后获取最新的净值日期对应的基金数据
+    data=db.session.query(Fund, FundNetValue).join(FundNetValue)\
+        .filter(FundNetValue.navDate== db.session.query(db.func.max(FundNetValue.navDate)).join(Fund2).filter(*params)
+                                                        .filter(db.and_(Fund2.title==Fund.title,Fund2.code==Fund.code))\
+                                                        .group_by(Fund2.code,Fund2.title)
+                ).order_by(Fund.code)
+
     totalCount = data.count()
     dataPaged = data.paginate(page=pageindex, per_page=pagesize, error_out=False).items
     items = []
@@ -468,7 +510,7 @@ def getSubCategorys():
     if category:
         categoryORM = db.session.query(Category).filter(Category.name == category).one()
 
-        subCategorys = [c.name for c in categoryORM.subCategorys] #subCategory对象的排序定义在models中了
+        subCategorys = [c.name for c in categoryORM.subCategorys]  # subCategory对象的排序定义在models中了
     else:
         categorys_tuple_list = db.session.query(Category.name).order_by(Category.priority.desc()).all()
         # 获取一级菜单的name集合
@@ -492,5 +534,5 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    app.run()
-    #manager.run()
+    # app.run()
+    manager.run()

@@ -71,7 +71,7 @@ class Category(db.Model):
 
 
 class SubCategory(db.Model):
-    __tablename__ = 'subCategorys'
+    __tablename__ = 'subcategorys'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20))  # 基金所属二级类别名称
     priority = db.Column(db.Integer)
