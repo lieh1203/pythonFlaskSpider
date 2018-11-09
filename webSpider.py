@@ -210,7 +210,7 @@ def getfundUrl(code):
         isSuccess = False
     elif dataJson.get('status') and dataJson.get('status') == 'success':
         if dataJson.get('url') and dataJson.get('code'):
-            result['url'] = dataJson.get('url')
+            result['url'] = dataJson.get('url').replace('http','https')
             result['code'] = dataJson.get('code')
     else:
         result['url'] = ''
@@ -306,7 +306,7 @@ def importfunds():
                             elif navDate == str_max_navDate:  # 当天重复跑时，更新补全最新的数据
                                 fundNetValue = FundNetValue.query.filter(
                                     db.and_(FundNetValue.fundId == int(fundId),
-                                            FundNetValue.navDate == navDate)).one()
+                                            FundNetValue.navDate == navDate)).first()
                                 fundNetValue.annualizedRate = annualizedRate
                                 fundNetValue.unitNav = unitNav
                                 bulk_fundsnetvalue.append(fundNetValue)
@@ -337,6 +337,7 @@ def importfunds():
 
 # 获取基金数据列表
 @app.route('/funds')
+@cache.cached(timeout=60 * 60, key_prefix=cache_key)
 def getfoudListByPaged():
     request_args_dicts = request.args.to_dict()
     pageindex = None
@@ -449,6 +450,7 @@ def getfoudListByPaged():
 
 
 @app.route('/funds/subCategorys')
+@cache.cached(timeout=60 * 60, key_prefix=cache_key)
 def getSubCategorys():
     request_args_dicts = request.args.to_dict()
     category = None  # 一级菜单name
