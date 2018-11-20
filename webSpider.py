@@ -18,6 +18,7 @@ from logging.config import dictConfig
 import urllib
 import time
 from dateutil.relativedelta import relativedelta
+import re
 
 dictConfig({'version': 1,
             'formatters': {'default': {
@@ -210,7 +211,10 @@ def getfundUrl(code):
         isSuccess = False
     elif dataJson.get('status') and dataJson.get('status') == 'success':
         if dataJson.get('url') and dataJson.get('code'):
-            result['url'] = dataJson.get('url').replace('http','https')
+            if not re.search('^https', dataJson.get('url')):
+                result['url'] = dataJson.get('url').replace('http', 'https')
+            else:
+                result['url'] = dataJson.get('url')
             result['code'] = dataJson.get('code')
     else:
         result['url'] = ''

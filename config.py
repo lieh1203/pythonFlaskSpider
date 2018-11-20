@@ -55,7 +55,7 @@ class TestingConfig(Config):
 
 # 生产环境下的配置
 class ProductionConfig(Config):  # ?charset=utf8
-    #外网访问：rm-bp144e89k6bf2vco11o.mysql.rds.aliyuncs.com
+    #外网访问-我的ip白名单：rm-bp144e89k6bf2vco11o.mysql.rds.aliyuncs.com
     #内网：rm-bp144e89k6bf2vco1.mysql.rds.aliyuncs.com
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://yida_admin:yidaAdmin2018@rm-bp144e89k6bf2vco11o.mysql.rds.aliyuncs.com:3306/yida-data?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
