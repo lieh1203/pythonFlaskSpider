@@ -8,7 +8,7 @@ certifi==2018.10.15
 cffi==1.11.5
 Click==7.0
 constantly==15.1.0
-cryptography==2.3.1
+cryptography==3.2
 cssselect==1.0.3
 Flask==1.0.2
 Flask-Cache==0.13.1
