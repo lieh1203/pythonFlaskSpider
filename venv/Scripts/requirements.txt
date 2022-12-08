@@ -4,7 +4,7 @@ attrs==18.2.0
 Automat==0.7.0
 beautifulsoup4==4.6.3
 bs4==0.0.1
-certifi==2018.10.15
+certifi==2022.12.7
 cffi==1.11.5
 Click==7.0
 constantly==15.1.0
